@@ -1,5 +1,6 @@
 import 'dotenv/config' //esta libreria llama a el archivo .env con las variables de entorno
 import express from 'express'
+import alumnosRoutes from './src/routes/alumno.routes.js'
 
 //crearmos una instancia de express
 const app = express();
@@ -7,9 +8,22 @@ const PORT = process.env.PORT ?? 3000;
 
 app.use(express.json()); //vamos a usar el formato json en nuestra app
 //arrancar el servidor y escuchar peticiones en el puerto especificado
+
+app.use('/api/alumnos', alumnosRoutes);
+
+//capturar cualquier solicitud que no coincida con las rutas establecidas
+app.use((req, res) => {
+    res.status(404).json({
+        error: "ruta no encontrada"
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto: ${PORT}`);
 });
+
+//LO ANTERIOR
+/*
 //rutas
 app.get('/', (req, res) => {
     res.json({
@@ -154,10 +168,4 @@ app.delete('/alumnos/:id', (req, res) => {
     alumnos.splice(alumnoIndex, 1);
     res.status(204).send();
 });
-
-//capturar cualquier solicitud que no coincida con las rutas establecidas
-app.use((req, res) => {
-    res.status(404).json({
-        error: "ruta no encontrada"
-    });
-});
+*/
