@@ -7,7 +7,7 @@ export const getAll = ({ grado } = {}) => {
 };
 
 //getById
-export const getById = () => {
+export const getById = (id) => {
   const alumno = AlumnoRepository.findById(id);
   if (!alumno) throw new appError("Alumno no encontrado", 404);
   return alumno;
