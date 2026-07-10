@@ -1,6 +1,7 @@
-import 'dotenv/config' //esta libreria llama a el archivo .env con las variables de entorno
-import express from 'express'
-import alumnosRoutes from './src/routes/alumno.routes.js'
+import 'dotenv/config'; //esta libreria llama a el archivo .env con las variables de entorno
+import express from 'express';
+import alumnosRoutes from './src/routes/alumno.routes.js';
+import {errorHandler} from './src/middlewares/errorHandler.js';
 
 //crearmos una instancia de express
 const app = express();
@@ -17,6 +18,8 @@ app.use((req, res) => {
         error: "ruta no encontrada"
     });
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto: ${PORT}`);

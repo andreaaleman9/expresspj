@@ -34,7 +34,7 @@ export const update = (id, campos) => {
     
     if(!campos){throw new AppError('No se proporcionaron campos para actualizar', 400)}
 
-    const camposPermitidos = ['nombre', 'apellidos', 'grado', 'seccion'];
+    const camposPermitidos = ['nombre', 'apellido', 'grado', 'seccion'];
     const camposEnviados = Object.keys(campos).filter((campo) =>
         camposPermitidos.includes(campo),
     );

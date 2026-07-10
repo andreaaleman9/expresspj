@@ -44,7 +44,9 @@ export const updateById = (id, campos) => {
     
     const permitidos = ['nombre', 'apellido', 'grado','seccion'];
     permitidos.forEach(campo => {
-        if(campos[campo] !== undefined) alumno[campo] = campo[campo];
+        if(campos[campo] !== undefined) {
+            alumno[campo] = campos[campo]; 
+        }
         //si lo encuentra lo asigna
     });
     return alumno;
