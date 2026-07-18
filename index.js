@@ -1,6 +1,7 @@
 import 'dotenv/config'; //esta libreria llama a el archivo .env con las variables de entorno
 import express from 'express';
 import alumnosRoutes from './src/routes/alumno.routes.js';
+import authRoutes from './src/routes/auth.routes.js';
 import {errorHandler} from './src/middlewares/errorHandler.js';
 
 //crearmos una instancia de express
@@ -10,7 +11,11 @@ const PORT = process.env.PORT ?? 3000;
 app.use(express.json()); //vamos a usar el formato json en nuestra app
 //arrancar el servidor y escuchar peticiones en el puerto especificado
 
+//rutas para alumnos
 app.use('/api/alumnos', alumnosRoutes);
+
+//rutas para autenticacion
+app.use('/api/auth', authRoutes);
 
 //capturar cualquier solicitud que no coincida con las rutas establecidas
 app.use((req, res) => {

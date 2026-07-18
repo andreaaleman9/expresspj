@@ -22,3 +22,11 @@ model Alumno{
   @@map("alumnos")
 }
 
+model Usuario{
+  id Int @id @default(autoincrement())
+  nombre String
+  email String @unique
+  passwordHash String
+
+  @@map("usuarios")
+}
