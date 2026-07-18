@@ -49,7 +49,7 @@ export const cambiarPassword = async (id,
     if(!passwordActual || !passwordNueva) {
         throw new AppError('Password actual y nuevo son requeridos', 400);
     };
-}
+
 
 const usuario = await UsuarioRepository.findById(id);
 if(!usuario) {
@@ -63,4 +63,5 @@ if(!coincide) {
 
 if(passwordNueva.length < 8 || passwordNueva.length > 72) {
     throw new AppError('La nueva contraseña debe tener entre 8 y 72 caracteres', 400);
+}
 }
