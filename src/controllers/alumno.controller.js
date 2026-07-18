@@ -1,22 +1,22 @@
 import * as AlumnoService from "../services/alumno.service.js";
 
 //getall
-export const getAll = (req, res) => {
+export const getAll = async (req, res) => {
 
-    const { grado } = req.query;
-    const alumnos = AlumnoService.getAll({ grado });
+    const { grado } =  req.query;
+    const alumnos = await AlumnoService.getAll({ grado });
     res.json(alumnos);
 
 };
 
 //getById
-export const getById = (req, res) => {
-  const alumno = AlumnoService.getById(Number(req.params.id));
+export const getById = async (req, res) => {
+  const alumno = await AlumnoService.getById(Number(req.params.id));
   res.json(alumno);
 };
 
-export const create = (req, res) => {
-  const nuevoAlumno = AlumnoService.create({
+export const create = async (req, res) => {
+  const nuevoAlumno = await AlumnoService.create({
     nombre: req.body?.nombre,
     apellido: req.body?.apellido,
     grado: req.body?.grado,
@@ -27,15 +27,15 @@ export const create = (req, res) => {
 };
 //
 
-export const update = (req, res) => {
-  const alumnoActualizado = AlumnoService.update(
+export const update = async (req, res) => {
+  const alumnoActualizado = await AlumnoService.update(
     Number(req.params.id),
     req.body,
   );
   res.json(alumnoActualizado);
 };
 
-export const remove = (req, res) => {
-  AlumnoService.remove(Number(req.params.id));
+export const remove = async (req, res) => {
+  await AlumnoService.remove(Number(req.params.id));
   res.status(204).send();
 };
