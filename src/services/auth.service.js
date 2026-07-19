@@ -1,6 +1,7 @@
 import { AppError } from '../errors/appError.js';
 import { comparePassword, hashPassword } from '../utils/password.js';
 import * as UsuarioRepository from '../repositories/usuario.repository.js';
+import { generarToken } from '../utils/token.js';
 
 export const registrar = async ({ nombre, email, password }) => {
     if(!nombre || !email || !password) {
@@ -40,7 +41,22 @@ export const iniciarSesion = async ({ email, password }) => {
         throw new AppError('Email o password incorrecto', 401);
     }
 
-    return {id: usuario.id, nombre: usuario.nombre, email: usuario.email};
+    const token = generarToken({ 
+        id: usuario.id, 
+        nombre: usuario.nombre, 
+        email: usuario.email,
+        rol: usuario.rol,
+    });
+    console.log('Token generado:', token);
+    return {
+        usuario: {
+                id: usuario.id, 
+                nombre: usuario.nombre, 
+                email: usuario.email, 
+                rol: usuario.rol,
+                token },
+                token,
+            };
 };
 
 export const cambiarPassword = async (id, 
@@ -64,4 +80,21 @@ if(!coincide) {
 if(passwordNueva.length < 8 || passwordNueva.length > 72) {
     throw new AppError('La nueva contraseña debe tener entre 8 y 72 caracteres', 400);
 }
+};
+
+export const obtenerPerfil = async (id) => {
+    const usuario = await UsuarioRepository.findById(id);
+    if(!usuario) {
+        throw new AppError('Usuario no encontrado', 404);
+    }
+    return {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        rol: usuario.rol,
+    };
+};
+
+export const listarUsuarios = async () => {
+    return await UsuarioRepository.findAll();
 }

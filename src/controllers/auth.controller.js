@@ -20,7 +20,17 @@ export const login = async (req, res) => {
 export const cambiarPassword = async (req, res) => {
     await AuthService.cambiarPassword(Number(req.params.id), {
         passwordActual: req.body?.passwordActual,
-        passwordNuevo: req.body?.passwordNuevo,
+        passwordNueva: req.body?.passwordNueva,
     });
     res.status(204).send();
+};
+
+export const perfil = async (req, res) => {
+    const usuario = await AuthService.obtenerPerfil(req.usuario.id);
+    res.json(usuario);
+};
+
+export const listarUsuarios = async (req, res) => {
+    const usuarios = await AuthService.listarUsuarios();
+    res.json(usuarios);
 }

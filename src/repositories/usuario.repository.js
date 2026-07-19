@@ -1,5 +1,11 @@
 import { prisma } from "../config/prisma.js";
 
+export const findAll = () => {
+  return prisma.usuario.findMany({
+    select: { id: true, nombre: true, email: true, rol: true },
+  });
+};
+
 export const findByEmail = (email) => {
   return prisma.usuario.findUnique({ where: { email } });
 };

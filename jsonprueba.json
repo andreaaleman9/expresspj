@@ -1,0 +1,10 @@
+{
+ "nombre":"Andrea",
+  "email":"gaby@gmail.com",
+  "password":"abcd1234"
+}
+
+{
+  "passwordActual":"1234abcd",
+  "passwordNueva":"123456789"
+}
